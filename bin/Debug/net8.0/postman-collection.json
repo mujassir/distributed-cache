@@ -1,0 +1,197 @@
+{
+  "info": {
+    "name": "Self-hosted Cache Service API",
+    "description": "High-performance distributed key-value cache service with TTL support",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "dev-key-12345",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Add Cache Item",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"key\": \"user:123\",\n  \"value\": {\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\"\n  },\n  \"ttl\": 3600\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cache",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache"]
+        }
+      }
+    },
+    {
+      "name": "Get Cache Item",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cache/user:123",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache", "user:123"]
+        }
+      }
+    },
+    {
+      "name": "Check Key Exists",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cache/exists/user:123",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache", "exists", "user:123"]
+        }
+      }
+    },
+    {
+      "name": "Remove Cache Item",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cache/user:123",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache", "user:123"]
+        }
+      }
+    },
+    {
+      "name": "Get Cache Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cache/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache", "stats"]
+        }
+      }
+    },
+    {
+      "name": "Get All Cache Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cache/all",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache", "all"]
+        }
+      }
+    },
+    {
+      "name": "Search Cache Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cache/search?pattern=user:.*",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache", "search"],
+          "query": [
+            {
+              "key": "pattern",
+              "value": "user:.*"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Flush All Cache",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/cache/flush",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache", "flush"]
+        }
+      }
+    },
+    {
+      "name": "Add Item with Short TTL",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"key\": \"temp:data\",\n  \"value\": \"This will expire in 30 seconds\",\n  \"ttl\": 30\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cache",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache"]
+        }
+      }
+    },
+    {
+      "name": "Bulk Add Items",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"key\": \"product:{{$randomInt}}\",\n  \"value\": {\n    \"name\": \"{{$randomProductName}}\",\n    \"price\": {{$randomPrice}},\n    \"category\": \"{{$randomProductCategory}}\"\n  },\n  \"ttl\": 7200\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/cache",
+          "host": ["{{baseUrl}}"],
+          "path": ["cache"]
+        }
+      }
+    }
+  ]
+}
