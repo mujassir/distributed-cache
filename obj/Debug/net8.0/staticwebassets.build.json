@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "SHZm8l5BCDHKXCon7LEykotaY1cN8oPewzPS/KMSbM0=",
+  "Source": "SelfHostedCacheService",
+  "BasePath": "_content/SelfHostedCacheService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
